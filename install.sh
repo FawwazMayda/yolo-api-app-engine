@@ -9,6 +9,10 @@ sudo apt-get install python3-pip -y
 
 pip3 install --upgrade pip
 
+# Install Open CV
+
+sudo apt-get install python3-opencv
+
 # Require
 
 pip3 install -r requirements.txt
