@@ -84,6 +84,7 @@ class MLManager():
 
     def predict_image(self,source):
         # will save (class_code,class_name,conf)
+        print("Start detection method")
         detection_result = []
         dataset = LoadImages(source, img_size=self.imgsz, stride=self.stride)
         
@@ -103,11 +104,12 @@ class MLManager():
                 img = img.unsqueeze(0)
 
             # Inference
+            print("Start Prediction")
             t1 = time_synchronized()
             pred = self.model(img,augment=self.opt.augment)[0]
 
             # use NMS
-
+            print("Start NMS")
             pred = non_max_suppression(pred,self.opt.conf_thres,self.opt.iou_thres,
             self.opt.classes,self.opt.agnostic_nms,max_det=self.opt.max_det)    
             t2 = time_synchronized()
