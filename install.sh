@@ -9,7 +9,7 @@ pip3 install --upgrade pip
 
 # Install Open CV
 
-sudo apt-get install python3-opencv
+sudo apt-get install python3-opencv -y
 
 # Require
 
