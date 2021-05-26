@@ -1,5 +1,3 @@
-# Install GIT
-sudo apt-get install git -y
 
 # Install pip
 
