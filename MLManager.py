@@ -83,7 +83,11 @@ class MLManager():
         return model
 
     def predict_image(self,source):
-        # will save (class_code,class_name,conf)
+        # will save {
+        #    "class_code":2,
+        #     "class_names":"Plastic",
+        #     "conf":0.44
+        # }
         print("Start detection method")
         detection_result = []
         dataset = LoadImages(source, img_size=self.imgsz, stride=self.stride)
@@ -141,8 +145,12 @@ class MLManager():
                     c = int(cls)  # integer class
                     label = None if self.opt.hide_labels else (self.names[c] if self.opt.hide_conf else f'{self.names[c]} {conf:.2f}')
                     plot_one_box(xyxy, im0, label=label, color=colors(c, True), line_thickness=self.opt.line_thickness)
-                    conf = float(conf)
-                    detection_result.append((c,self.names[c],conf))
+                    item = {
+                        "class_code":c,
+                        "class_name":self.names[c],
+                        "conf":float(conf)
+                    }
+                    detection_result.append(item)
                     # Print results
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += f"{n} {self.names[int(c)]}{'s' * (n > 1)}, "  # add to string
