@@ -29,10 +29,12 @@ def detect():
     image_result_path = None
 
     # Handle POST
+    print("Getting image from POST")
     uploaded_image = request.files["file"]
 
     # save to directory of images to infer
     dir = os.path.join("images-to-infer",uploaded_image.filename)
+    print(f"Save image to {dir}")
     uploaded_image.save(dir)
 
     # get result
