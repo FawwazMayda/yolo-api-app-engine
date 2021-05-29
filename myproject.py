@@ -33,13 +33,17 @@ def delete_uploaded_image(path_to_img):
 
 @app.route("/")
 def hello():
-    return "Hi From Flask"
+    msg = "Hi From Flask"
+    logging.info(msg)
+    return msg
 
 @app.route("/detectLabel",methods=["POST","GET"])
 def detect():
     global model,image_result_path
     if request.method == "GET":
-        return "To Detect from image use POST with 'file' with image to predict"
+        msg = "To Detect from image use POST with 'file' with image to predict"
+        logging.info(msg)
+        return msg
 
     # Handle POST
 
