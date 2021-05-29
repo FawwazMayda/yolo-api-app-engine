@@ -21,7 +21,7 @@ client.setup_logging()
 
 app = Flask(__name__)
 CORS(app)
-app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg']
+app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg',".JPG",".JPEG",".PNG"]
 model = MLManager("best.pt")
 
 # save the label and image path result
