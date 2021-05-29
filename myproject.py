@@ -1,6 +1,8 @@
 from flask.helpers import send_file
 from MLManager import MLManager
-from flask import Flask,request,send_from_directory,jsonify
+from flask import Flask,request,jsonify
+from flask_cors import CORS
+
 import os
 import logging
 
@@ -18,6 +20,7 @@ client.get_default_handler()
 client.setup_logging()
 
 app = Flask(__name__)
+CORS(app)
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg']
 model = MLManager("best.pt")
 
