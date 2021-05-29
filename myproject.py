@@ -84,8 +84,11 @@ def detect():
 def getImageDetectionResult():
     global image_result_path
     if image_result_path == None:
-        return "Please made a detection request via /detectLabel"
+        msg = "Please made a detection request via /detectLabel"
+        logging.info(msg)
+        return msg
     else:
+        logging.info("Sending image detection result")
         return send_file(image_result_path)
 
 
