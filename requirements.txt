@@ -32,4 +32,8 @@ pycocotools>=2.0  # COCO mAP
 # web
 Flask
 gunicorn
+flask-cors
+
+# logging
+google-cloud-logging
 
