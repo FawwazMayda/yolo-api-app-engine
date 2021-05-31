@@ -110,7 +110,7 @@ def detect():
     delete_uploaded_image(dir)
     logging.debug(res)
     response_to_send = {
-        "uri":upload_to_gcs_and_return_uri(image_result_path,uploaded_image.filename),
+        "url":upload_to_gcs_and_return_uri(image_result_path,uploaded_image.filename),
         "response":res
     }
     return jsonify(response_to_send)
