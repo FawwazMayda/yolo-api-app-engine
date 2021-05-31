@@ -49,7 +49,7 @@ def upload_to_gcs_and_return_uri(source_filename):
     global bucket
     # Just make the source and destination name the same
     blob = bucket.blob(source_filename)
-    blob.upload_from_file(source_filename)
+    blob.upload_from_filename(source_filename)
 
     msg = f"File uploaded to {bucket.name} with name {blob.name}"
     logging.info(msg)
