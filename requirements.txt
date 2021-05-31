@@ -27,7 +27,7 @@ pandas
 # extras --------------------------------------
 thop  # FLOPS computation
 Cython  # for pycocotools https://github.com/cocodataset/cocoapi/issues/172
-pycocotools>=2.0  # COCO mAP
+# pycocotools>=2.0  # COCO mAP
 
 # web
 Flask
