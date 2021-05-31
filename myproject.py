@@ -60,7 +60,7 @@ def upload_to_gcs_and_return_uri(source_filename,destination_filename):
     msg = f"{source_filename} is accesible via {blob.public_url}"
     logging.info(msg)
     print(msg)
-    return blob.public_uri
+    return blob.public_url
 
 @app.route("/")
 def hello():
