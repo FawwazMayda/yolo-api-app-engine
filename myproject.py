@@ -45,10 +45,10 @@ image_result_path = None
 def delete_uploaded_image(path_to_img):
     os.remove(path_to_img)
 
-def upload_to_gcs_and_return_uri(source_filename):
+def upload_to_gcs_and_return_uri(source_filename,destination_filename):
     global bucket
     # Just make the source and destination name the same
-    blob = bucket.blob(source_filename)
+    blob = bucket.blob(destination_filename)
     blob.upload_from_filename(source_filename)
 
     msg = f"File uploaded to {bucket.name} with name {blob.name}"
@@ -110,7 +110,7 @@ def detect():
     delete_uploaded_image(dir)
     logging.debug(res)
     response_to_send = {
-        "uri":upload_to_gcs_and_return_uri(image_result_path),
+        "uri":upload_to_gcs_and_return_uri(image_result_path,uploaded_image.filename),
         "response":res
     }
     return jsonify(response_to_send)
