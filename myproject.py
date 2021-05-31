@@ -57,7 +57,7 @@ def upload_to_gcs_and_return_uri(source_filename,destination_filename):
 
     blob.make_public()
 
-    msg = f"{source_filename} is accesible via {blob.public_uri}"
+    msg = f"{source_filename} is accesible via {blob.public_url}"
     logging.info(msg)
     print(msg)
     return blob.public_uri
