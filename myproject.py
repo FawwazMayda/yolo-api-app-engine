@@ -3,6 +3,7 @@ from MLManager import MLManager
 from flask import Flask,request,jsonify
 from flask_cors import CORS
 
+
 import os
 import logging
 
@@ -19,6 +20,19 @@ client = google.cloud.logging.Client()
 client.get_default_handler()
 client.setup_logging()
 
+# Imports the Google Cloud client library
+from google.cloud import storage
+
+# Instantiates a client
+storage_client = storage.Client()
+
+# The name for the new bucket
+bucket_name = os.environ["bucket_name"]
+print(f"Bucket is {bucket_name}")
+
+# Get the bucket
+bucket = storage_client.bucket(bucket_name)
+
 app = Flask(__name__)
 CORS(app)
 app.config['UPLOAD_EXTENSIONS'] = ['.jpg', '.png', '.jpeg',".JPG",".JPEG",".PNG"]
@@ -30,6 +44,23 @@ image_result_path = None
 
 def delete_uploaded_image(path_to_img):
     os.remove(path_to_img)
+
+def upload_to_gcs_and_return_uri(source_filename):
+    global bucket
+    # Just make the source and destination name the same
+    blob = bucket.blob(source_filename)
+    blob.upload_from_file(source_filename)
+
+    msg = f"File uploaded to {bucket.name} with name {blob.name}"
+    logging.info(msg)
+    print(msg)
+
+    blob.make_public()
+
+    msg = f"{source_filename} is accesible via {blob.public_uri}"
+    logging.info(msg)
+    print(msg)
+    return blob.public_uri
 
 @app.route("/")
 def hello():
@@ -78,7 +109,11 @@ def detect():
     image_result_path = os.path.join("detection-result","exp",uploaded_image.filename)
     delete_uploaded_image(dir)
     logging.debug(res)
-    return jsonify(res)
+    response_to_send = {
+        "uri":upload_to_gcs_and_return_uri(image_result_path),
+        "response":res
+    }
+    return jsonify(response_to_send)
 
 @app.route("/getImageDetectionResult",methods=["GET"])
 def getImageDetectionResult():

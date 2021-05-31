@@ -37,3 +37,6 @@ flask-cors
 # logging
 google-cloud-logging
 
+# gcs
+google-cloud-storage
+
